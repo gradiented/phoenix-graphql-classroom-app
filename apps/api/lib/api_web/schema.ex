@@ -1,7 +1,6 @@
 defmodule ApiWeb.Schema do
   use Absinthe.Schema
 
-  alias Api.Test
   alias ApiWeb.TestResolver
 
   object :message do

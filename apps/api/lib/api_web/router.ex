@@ -10,7 +10,6 @@ defmodule ApiWeb.Router do
 
     forward "/graphiql", Absinthe.Plug.GraphiQL,
       schema: ApiWeb.Schema,
-      interface: :simple,
-      context: %{pubsub: ApiWeb.Endpoint }
+      interface: :simple
   end
 end
