@@ -2,6 +2,7 @@ defmodule ApiWeb.Schema do
   use Absinthe.Schema
 
   alias ApiWeb.TestResolver
+  alias ApiWeb.UserResolver
 
   object :message do
     field(:id, non_null(:id))
@@ -23,6 +24,13 @@ defmodule ApiWeb.Schema do
     field :new_message, :message do
       arg(:text, non_null(:string))
       resolve(&TestResolver.new_message/3)
+    end
+
+    field :create_user, type: :user do
+      arg(:email, non_null(:string))
+      arg(:password, non_null(:string))
+
+      resolve(&UserResolver.create/2)
     end
   end
 

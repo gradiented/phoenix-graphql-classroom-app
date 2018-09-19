@@ -10,10 +10,15 @@ config :api,
   namespace: Api,
   ecto_repos: [Api.Repo]
 
+config :api, Api.Guardian,
+  issuer: "gradient.education",
+  # TODO: Remove to env
+  secret_key: "uxAmXIjI78q3KOfX4eCdt95dyY5U6tdg/vxRE8qA7jFUBJWB5z9EgoOge2/VE9qx",
+  serializer: Api.Guardian
+
 # Configures the endpoint
 config :api, ApiWeb.Endpoint,
   url: [host: "localhost"],
-  secret_key_base: "rDjTZT6WkjejPrsWSMUmb7tfbSIP14vYXVlIOKDbaGfmQ8aun15fP355X6TE4Ksf",
   pubsub: [name: Api.PubSub, adapter: Phoenix.PubSub.PG2]
 
 # Configures Elixir's Logger
