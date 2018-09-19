@@ -1,9 +1,15 @@
 defmodule ApiWeb do
-
   def router do
     quote do
       use Phoenix.Router
       import Plug.Conn
+    end
+  end
+
+  def channel do
+    quote do
+      use Phoenix.Channel
+      import Api.Gettext
     end
   end
 
