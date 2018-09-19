@@ -14,9 +14,20 @@ defmodule ApiWeb.Schema do
     field(:email, :string)
   end
 
+  object :session do
+    field(:token, :string)
+  end
+
   query do
     field :all_messages, non_null(list_of(non_null(:message))) do
       resolve(&TestResolver.all_messages/3)
+    end
+
+    field :login, type: :session do
+      arg(:email, non_null(:string))
+      arg(:password, non_null(:string))
+
+      resolve(&UserResolver.login/2)
     end
   end
 

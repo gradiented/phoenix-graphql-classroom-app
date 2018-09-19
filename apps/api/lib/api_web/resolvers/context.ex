@@ -2,9 +2,6 @@ defmodule ApiWeb.Context do
   @behaviour Plug
 
   import Plug.Conn
-  import Ecto.Query, only: [where: 2]
-
-  alias Api.{Repo, User}
 
   def init(opts), do: opts
 
@@ -17,21 +14,13 @@ defmodule ApiWeb.Context do
   Return the current user context based on the authorization header
   """
   def build_context(conn) do
-    with ["Bearer " <> token] <- get_req_header(conn, "authorization"),
-         {:ok, current_user} <- authorize(token) do
-      %{current_user: current_user}
+    with ["Bearer " <> token] <- get_req_header(conn, "authorization") do
+      with {:ok, claims} <- Api.Guardian.decode_and_verify(token),
+           {:ok, current_user} <- Api.Guardian.resource_from_claims(claims) do
+        %{current_user: current_user}
+      end
     else
-      _ -> %{}
-    end
-  end
-
-  defp authorize(token) do
-    User
-    |> where(token: ^token)
-    |> Repo.one()
-    |> case do
-      nil -> {:error, "invalid authorization token"}
-      user -> {:ok, user}
+      none -> %{}
     end
   end
 end

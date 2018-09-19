@@ -11,4 +11,11 @@ defmodule ApiWeb.UserResolver do
     |> Accounts.User.changeset(attrs)
     |> Repo.insert()
   end
+
+  def login(%{email: email, password: password}, _info) do
+    with {:ok, user} <- Accounts.authenticate_user(email, password),
+         {:ok, jwt, _} <- Api.Guardian.encode_and_sign(user) do
+      {:ok, %{token: jwt}}
+    end
+  end
 end
