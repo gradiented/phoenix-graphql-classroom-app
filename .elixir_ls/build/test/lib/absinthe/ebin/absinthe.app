@@ -269,6 +269,7 @@
                         'Elixir.Absinthe.Utils.Suggestion',
                         'Elixir.Inspect.Absinthe.Resolution',
                         'Elixir.Mix.Tasks.Absinthe.Schema.Json',
+                        'Elixir.Mix.Tasks.Absinthe.Schema.Json.Options',
                         absinthe_lexer,absinthe_parser]},
               {registered,[]},
               {vsn,"1.4.13"}]}.
